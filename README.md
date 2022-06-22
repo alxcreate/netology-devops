@@ -52,6 +52,8 @@ for i in {000..299}; do; touch $i{000..999}; done</p>
 
 <p><b>11 В man bash поищите по /\[\[. Что делает конструкция [[ -d /tmp ]]</b><br>
 Логическое выражение проверяет существование каталога tmp</p>
+<p>vagrant@vagrant:~$ if [[ -d /tmp ]]; then echo "true"; else echo "false"; fi;<br>
+true</p>
 
 <p><b>12 Основываясь на знаниях о просмотре текущих (например, PATH) и установке новых переменных; командах, которые мы рассматривали, добейтесь в выводе type -a bash в виртуальной машине наличия первым пунктом в списке: bash is /tmp/new_path_directory/bash<br>
 bash is /usr/local/bin/bash<br>
