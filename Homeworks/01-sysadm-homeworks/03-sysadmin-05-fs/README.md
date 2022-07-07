@@ -43,7 +43,7 @@ Ok.
 
 > 5. Используя sfdisk, перенесите данную таблицу разделов на второй диск.
 
-    vagrant@vagrant:~$ Syncing disks.vagrant@vagrant:~$ vagrant@vagrant:~$ sudo sfdisk -d /dev/sdb|sudo sfdisk  /dev/sdc --force
+    vagrant@vagrant:~$ sudo sfdisk -d /dev/sdb|sudo sfdisk  /dev/sdc --force
     -bash: Syncing: command not found
     Checking that no-one is using this disk right now ... OK
     
