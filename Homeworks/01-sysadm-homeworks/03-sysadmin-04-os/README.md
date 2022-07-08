@@ -15,6 +15,7 @@
     Group=node_exporter
     Type=simple
     ExecStart=/usr/local/bin/node_exporter
+    EnvironmentFile=/etc/default/node_exporter
     [Install]
     WantedBy=multi-user.target
 
