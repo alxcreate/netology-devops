@@ -33,6 +33,20 @@
 
 ![](node_exporter.png)
 
+> Задание 1
+>
+> Предлагаю уточнить как именно в службу будут передаваться дополнительные опции. Примеры можно посмотреть вот здесь:
+>
+> https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart=
+>
+> https://unix.stackexchange.com/questions/323914/dynamic-variables-in-systemd-service-unit-files
+>
+> https://stackoverflow.com/questions/48843949/systemd-use-variables-in-a-unit-file
+>
+> Замечу, что речь идёт не о переменных окружения, а об опциях (параметрах) запуска службы.
+
+Дополнительные опции указываются в строке команды запуска execstart. Они выполняются при старте службы.
+
 > 2. Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
 
 Я бы использовал следующие параметры для мониторинга активности:
