@@ -178,6 +178,8 @@
 
 > 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
+Конфигурация сетевого интерфейса:
+
     vagrant@vagrant:~$ cat /etc/systemd/network/dummy0.network
     [Match]
     Name=dummy0
@@ -195,7 +197,9 @@
     [NetDev]
     Name=dummy0
     Kind=dummy
-####
+
+Список интерфейсов:
+
     vagrant@vagrant:~$ ip a
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -221,6 +225,19 @@
     valid_lft forever preferred_lft forever
     inet6 fe80::7cf5:36ff:fe7a:8907/64 scope link
     valid_lft forever preferred_lft forever
+
+Список маршрутов:
+
+    vagrant@vagrant:~$ ip -br route
+    default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100
+    default via 192.168.0.1 dev eth1 proto dhcp src 192.168.0.24 metric 100
+    10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15
+    10.0.2.2 dev eth0 proto dhcp scope link src 10.0.2.15 metric 100
+    172.16.0.0/16 dev dummy0 proto kernel scope link src 172.16.0.1
+    172.16.1.0/24 via 172.16.0.1 dev dummy0 proto static
+    172.16.2.0/24 via 172.16.0.1 dev dummy0 proto static
+    192.168.0.0/24 dev eth1 proto kernel scope link src 192.168.0.24
+    192.168.0.1 dev eth1 proto dhcp scope link src 192.168.0.24 metric 100
 
 > 3. Проверьте открытые TCP порты в Ubuntu, какие протоколы и приложения используют эти порты? Приведите несколько примеров.
 
