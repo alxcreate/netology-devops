@@ -147,6 +147,8 @@
 
 Подключение по заданному имени:
 
+
+```console
     vagrant@vm-1:~$ ssh node-1
     Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-110-generic x86_64)
 
@@ -165,13 +167,17 @@
     This system is built by the Bento project by Chef Software
     More information can be found at https://github.com/chef/bento
     Last login: Sun Jul 24 13:04:48 2022 from 10.0.0.14
+```
+
 
 > 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
+```shell
     vagrant@vm-1:~$ sudo tcpdump -c 100 -w tcpdump.pcap -i eth1
     tcpdump: listening on eth1, link-type EN10MB (Ethernet), capture size 262144 bytes
     100 packets captured
     102 packets received by filter
     0 packets dropped by kernel
+```
 
 ![](4.png)
