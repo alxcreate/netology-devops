@@ -172,7 +172,7 @@
 
 > 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
-```shell
+```sh
     vagrant@vm-1:~$ sudo tcpdump -c 100 -w tcpdump.pcap -i eth1
     tcpdump: listening on eth1, link-type EN10MB (Ethernet), capture size 262144 bytes
     100 packets captured
