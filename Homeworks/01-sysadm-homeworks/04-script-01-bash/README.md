@@ -44,7 +44,17 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
+while ((1==1))
+do
+    sleep 10
+	curl https://localhost:4757
+	if (($? != 0))
+	then
+		date >> curl.log
+	else
+	    exit
+	fi
+done
 ```
 
 ## Обязательная задача 3
@@ -52,7 +62,15 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
+addrs=(192.168.0.1 173.194.222.113 87.250.250.24)
+for ip in ${addrs[@]}
+do
+    for i in {1..5}
+    do
+        curl --connect-timeout 1 $ip:80
+        echo $ip $? `date "+%FT%T"` >> ping.log
+    done
+done
 ```
 
 ## Обязательная задача 4
@@ -60,7 +78,22 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
+addrs=(192.168.0.1 173.194.222.113 87.250.250.24)
+for ip in ${addrs[@]}
+do
+    for i in {1..5}
+    do
+        curl --connect-timeout 1 $ip:80
+        code=$?
+        if ((code != 0))
+        then
+            echo $ip $code `date "+%FT%T"` >> error.log
+            exit
+        else
+            echo $ip $code `date "+%FT%T"` >> ping.log
+        fi
+    done
+done
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
