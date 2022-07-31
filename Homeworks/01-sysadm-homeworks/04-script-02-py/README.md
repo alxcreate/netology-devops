@@ -57,7 +57,7 @@ for result in result_os.split('\n'):
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+/Users/alx/Documents/git/netology-devops/01-sysadm-homeworks/04-script-02-py/README.md
 ```
 
 ## Обязательная задача 3
@@ -65,12 +65,25 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+import os
+
+
+print("Enter path for local git repository:")
+dir = input()
+os.chdir(dir)
+bash_command = ["git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        prepare_result = result.replace('\tmodified:   ', '')
+        print(dir+prepare_result)
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+Enter path for local git repository:
+/Users/alx/Documents/git/netology-devops/
+/Users/alx/Documents/git/netology-devops/Homeworks/01-sysadm-homeworks/04-script-02-py/README.md
 ```
 
 ## Обязательная задача 4
@@ -78,12 +91,28 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+
+import socket
+
+
+def check(service, old_ip):
+    ip = socket.gethostbyname(service)
+    print(service, ip)
+    if ip != old_ip:
+        print(f"[ERROR] <{service}> IP mismatch: <{old_ip}> <{ip}>")
+
+
+check("drive.google.com", socket.gethostbyname("drive.google.com"))
+check("mail.google.com", socket.gethostbyname("mail.google.com"))
+check("google.com", socket.gethostbyname("google.com"))
+
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+drive.google.com 64.233.165.194
+mail.google.com 108.177.14.19
+google.com 173.194.222.113
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
