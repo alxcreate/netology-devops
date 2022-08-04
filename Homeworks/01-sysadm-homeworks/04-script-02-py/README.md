@@ -103,37 +103,37 @@ List = {
 while True:
     for Name in List:
         ip = socket.gethostbyname(Name)
-        print(Name, ip)
+        print(f'{Name} - {ip}')
         if ip != List[Name]:
-            print(f'[ERROR] <{Name}> IP mismatch: <{List[Name]}> <{ip}>')
-            List[Name] = ip
+            print(f'[ERROR] {Name} IP mismatch: {List[Name]} {ip}')
+        List[Name] = ip
     sleep(10)
 
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-drive.google.com 209.85.233.194
-[ERROR] <drive.google.com> IP mismatch: <> <209.85.233.194>
-mail.google.com 74.125.131.83
-[ERROR] <mail.google.com> IP mismatch: <> <74.125.131.83>
-google.com 173.194.221.102
-[ERROR] <google.com> IP mismatch: <> <173.194.221.102>
-drive.google.com 209.85.233.194
-mail.google.com 74.125.131.83
-google.com 173.194.221.102
-drive.google.com 172.217.17.142
-[ERROR] <drive.google.com> IP mismatch: <209.85.233.194> <172.217.17.142>
-mail.google.com 172.217.20.69
-[ERROR] <mail.google.com> IP mismatch: <74.125.131.83> <172.217.20.69>
-google.com 172.217.17.206
-[ERROR] <google.com> IP mismatch: <173.194.221.102> <172.217.17.206>
-drive.google.com 172.217.17.142
-mail.google.com 172.217.20.69
-google.com 172.217.17.206
-drive.google.com 172.217.17.142
-mail.google.com 172.217.20.69
-google.com 172.217.17.206
+drive.google.com - 172.217.17.142
+[ERROR] drive.google.com IP mismatch:  172.217.17.142
+mail.google.com - 172.217.20.69
+[ERROR] mail.google.com IP mismatch:  172.217.20.69
+google.com - 172.217.17.206
+[ERROR] google.com IP mismatch:  172.217.17.206
+drive.google.com - 172.217.17.142
+mail.google.com - 172.217.20.69
+google.com - 172.217.17.206
+drive.google.com - 209.85.233.194
+[ERROR] drive.google.com IP mismatch: 172.217.17.142 209.85.233.194
+mail.google.com - 74.125.131.17
+[ERROR] mail.google.com IP mismatch: 172.217.20.69 74.125.131.17
+google.com - 74.125.131.139
+[ERROR] google.com IP mismatch: 172.217.17.206 74.125.131.139
+drive.google.com - 209.85.233.194
+mail.google.com - 74.125.131.17
+google.com - 74.125.131.139
+drive.google.com - 209.85.233.194
+mail.google.com - 74.125.131.17
+google.com - 74.125.131.139
 ...
 ```
 
