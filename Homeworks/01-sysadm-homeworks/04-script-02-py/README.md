@@ -95,61 +95,45 @@ Enter path for local git repository:
 import socket
 from time import sleep
 
-serviceList = {
-    "drive.google.com": socket.gethostbyname("drive.google.com"),
-    "mail.google.com": socket.gethostbyname("mail.google.com"),
-    "google.com": socket.gethostbyname("google.com")
+List = {
+    "drive.google.com": '',
+    "mail.google.com": '',
+    "google.com": ''
 }
 while True:
-    for serviceName in serviceList:
-        ip = socket.gethostbyname(serviceName)
-        print(serviceName, ip)
-        if ip != serviceList[serviceName]:
-            print(f'[ERROR] <{serviceName}> IP mismatch: <{serviceList[serviceName]}> <{ip}>')
-        serviceList[serviceName] = ip
+    for Name in List:
+        ip = socket.gethostbyname(Name)
+        print(Name, ip)
+        if ip != List[Name]:
+            print(f'[ERROR] <{Name}> IP mismatch: <{List[Name]}> <{ip}>')
+            List[Name] = ip
     sleep(10)
-
 
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-drive.google.com 172.217.169.206
-mail.google.com 172.217.17.229
-google.com 172.217.169.174
-drive.google.com 172.217.169.206
-mail.google.com 172.217.17.229
-google.com 172.217.169.174
-drive.google.com 142.250.201.206
-[ERROR] <drive.google.com> IP mismatch: <172.217.169.206> <142.250.201.206>
-mail.google.com 142.250.180.197
-[ERROR] <mail.google.com> IP mismatch: <172.217.17.229> <142.250.180.197>
-google.com 142.250.180.206
-[ERROR] <google.com> IP mismatch: <172.217.169.174> <142.250.180.206>
-drive.google.com 142.250.201.206
-mail.google.com 142.250.180.197
-google.com 142.250.180.206
-drive.google.com 142.250.179.174
-[ERROR] <drive.google.com> IP mismatch: <142.250.201.206> <142.250.179.174>
-mail.google.com 216.58.208.101
-[ERROR] <mail.google.com> IP mismatch: <142.250.180.197> <216.58.208.101>
-google.com 142.251.39.110
-[ERROR] <google.com> IP mismatch: <142.250.180.206> <142.251.39.110>
-drive.google.com 142.250.179.174
-mail.google.com 216.58.208.101
-google.com 142.251.39.110
 drive.google.com 209.85.233.194
-[ERROR] <drive.google.com> IP mismatch: <142.250.179.174> <209.85.233.194>
-mail.google.com 173.194.73.19
-[ERROR] <mail.google.com> IP mismatch: <216.58.208.101> <173.194.73.19>
-google.com 74.125.131.102
-[ERROR] <google.com> IP mismatch: <142.251.39.110> <74.125.131.102>
+[ERROR] <drive.google.com> IP mismatch: <> <209.85.233.194>
+mail.google.com 74.125.131.83
+[ERROR] <mail.google.com> IP mismatch: <> <74.125.131.83>
+google.com 173.194.221.102
+[ERROR] <google.com> IP mismatch: <> <173.194.221.102>
 drive.google.com 209.85.233.194
-mail.google.com 173.194.73.19
-google.com 74.125.131.102
-drive.google.com 209.85.233.194
-mail.google.com 173.194.73.19
-google.com 74.125.131.102
+mail.google.com 74.125.131.83
+google.com 173.194.221.102
+drive.google.com 172.217.17.142
+[ERROR] <drive.google.com> IP mismatch: <209.85.233.194> <172.217.17.142>
+mail.google.com 172.217.20.69
+[ERROR] <mail.google.com> IP mismatch: <74.125.131.83> <172.217.20.69>
+google.com 172.217.17.206
+[ERROR] <google.com> IP mismatch: <173.194.221.102> <172.217.17.206>
+drive.google.com 172.217.17.142
+mail.google.com 172.217.20.69
+google.com 172.217.17.206
+drive.google.com 172.217.17.142
+mail.google.com 172.217.20.69
+google.com 172.217.17.206
 ...
 ```
 
