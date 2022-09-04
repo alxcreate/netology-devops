@@ -31,6 +31,16 @@
 
 ### Ответ
 
+```
+alx@linux:~$ VBoxManage -version
+6.1.34_Ubuntur150636
+
+alx@linux:~$ vagrant --version
+Vagrant 2.2.19
+
+alx@linux:~$ ansible --version
+ansible 2.10.8
+```
 
 ## Задача 4 (*)
 
