@@ -35,8 +35,6 @@ https://hub.docker.com/repository/docker/alxaustralia/nginx
 
 Детально опишите и обоснуйте свой выбор.
 
---
-
 Сценарий:
 
 - Высоконагруженное монолитное java веб-приложение;
