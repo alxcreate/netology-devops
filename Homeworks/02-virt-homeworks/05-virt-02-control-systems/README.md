@@ -51,3 +51,31 @@ ansible 2.10.8
 ```
 docker ps
 ```
+
+### Ответ
+
+```
+alx@linux:/media/alx/vm/vagrant$ vagrant ssh
+Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-30-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Sep  4 08:59:41 AM UTC 2022
+
+  System load:  0.189453125        Users logged in:          0
+  Usage of /:   13.3% of 30.34GB   IPv4 address for docker0: 172.17.0.1
+  Memory usage: 24%                IPv4 address for eth0:    10.0.2.15
+  Swap usage:   0%                 IPv4 address for eth1:    192.168.56.11
+  Processes:    100
+
+
+This system is built by the Bento project by Chef Software
+More information can be found at https://github.com/chef/bento
+Last login: Sun Sep  4 08:57:34 2022 from 10.0.2.2
+vagrant@server1:~$ hostname
+server1
+vagrant@server1:~$ docker --version
+Docker version 20.10.17, build 100c701
+```
