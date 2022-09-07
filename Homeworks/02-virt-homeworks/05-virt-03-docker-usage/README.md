@@ -84,4 +84,8 @@ https://hub.docker.com/repository/docker/alxaustralia/nginx
 alx@alx-laptop docker % docker run -v /Users/alx/Documents/data:/data -it debian
 root@5d7bc1393785:/# ls data
 file.txt  file2.txt
+
+alx@alx-laptop docker % docker run -v /Users/alx/Documents/data:/data -it centos
+[root@13766db14759 /]# ls data
+file.txt  file2.txt
 ```
