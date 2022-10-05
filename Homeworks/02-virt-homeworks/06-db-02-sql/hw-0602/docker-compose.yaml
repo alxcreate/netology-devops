@@ -1,0 +1,19 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    container_name: hw0602-1
+    ports:
+      - "5432:5432"
+    volumes:
+      - /Users/alx/Documents/docker/volumes/vol1:/var/lib/docker/volumes/vol1/_data
+      - /Users/alx/Documents/docker/volumes/vol3:/var/lib/docker/volumes/vol2/_data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=db
+    restart: always
+volumes:
+  vol1:
+  vol2:
