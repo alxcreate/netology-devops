@@ -1,0 +1,16 @@
+version: "3"
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - /Users/alx/Documents/git/netology-devops/Homeworks/02-virt-homeworks/06-db-03-mysql/docker/volume/db:/var/lib/mysql
+      - /Users/alx/Documents/git/netology-devops/Homeworks/02-virt-homeworks/06-db-03-mysql/docker/volume/backup:/tmp/backup
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    restart: always
+volumes:
+  db:
+  backup:
