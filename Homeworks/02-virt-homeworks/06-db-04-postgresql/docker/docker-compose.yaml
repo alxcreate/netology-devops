@@ -1,0 +1,16 @@
+version: "3"
+services:
+  mysql:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - /Users/alx/Documents/git/netology-devops/Homeworks/02-virt-homeworks/06-db-04-postgresql/docker/volume/db:/var/lib/mysql
+      - /Users/alx/Documents/git/netology-devops/Homeworks/02-virt-homeworks/06-db-04-postgresql/docker/volume/backup:/tmp/backup
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    restart: always
+volumes:
+  db:
+  backup:

@@ -9,7 +9,7 @@ services:
       - /Users/alx/Documents/docker/volumes/vol1:/var/lib/docker/volumes/vol1/_data
       - /Users/alx/Documents/docker/volumes/vol3:/var/lib/docker/volumes/vol2/_data
     environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
+      - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=db
