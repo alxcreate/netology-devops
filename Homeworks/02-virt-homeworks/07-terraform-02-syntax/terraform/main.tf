@@ -1,22 +1,10 @@
-terraform {
-  required_providers {
-    yandex = {
-      source = "yandex-cloud/yandex"
-    }
-  }
-}
-
 provider "yandex" {
-  token     = $yc_token
-  cloud_id  = "b1g6f9ktskg20km27fo6"
-  folder_id = "b1gepbnbb1dpav5bstcs"
-  zone      = "ru-central1-a"
+  zone = "ru-central1-a"
 }
 
-resource "yandex_compute_instance" "default" {
-  name        = "test"
+resource "yandex_compute_instance" "vm01" {
+  name        = "vm1"
   platform_id = "standard-v1"
-  zone        = "ru-central1-a"
 
   resources {
     cores  = 2
@@ -25,23 +13,26 @@ resource "yandex_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image_id = "image_id"
+      image_id = "fd8smb7fj0o91i68s15v"
     }
   }
 
   network_interface {
-    subnet_id = "${yandex_vpc_subnet.foo.id}"
+    subnet_id = yandex_vpc_subnet.subnet01.id
+    nat       = true
   }
 
   metadata = {
-    foo      = "bar"
     ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 }
 
-resource "yandex_vpc_network" "foo" {}
+resource "yandex_vpc_network" "network01" {
+  name = "network01"
+}
 
-resource "yandex_vpc_subnet" "foo" {
-  zone       = "ru-central1-a"
-  network_id = "${yandex_vpc_network.foo.id}"
+resource "yandex_vpc_subnet" "subnet01" {
+  name           = "subnet01"
+  v4_cidr_blocks = ["10.2.0.0/16"]
+  network_id     = yandex_vpc_network.network01.id
 }
