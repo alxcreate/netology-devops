@@ -1,0 +1,5 @@
+*.lock.hcl
+*.tfstate
+.terraform
+*.backup
+private.*
