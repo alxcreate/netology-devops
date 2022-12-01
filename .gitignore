@@ -3,3 +3,4 @@
 .terraform
 *.backup
 private.*
+.DS_Store
