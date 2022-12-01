@@ -39,7 +39,9 @@
 
 ### Ответ:
 
+[server.yaml](atlantis/server.yaml)
 
+[atlantis.yaml](atlantis/atlantis.yaml)
 
 ## Задача 3. Знакомство с каталогом модулей.
 
