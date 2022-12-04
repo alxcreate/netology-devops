@@ -4,11 +4,11 @@
 Но рекомендуем ознакомиться с [GoLand](https://www.jetbrains.com/ru-ru/go/).  
 
 ## Задача 1. Установите golang.
-1. Воспользуйтесь инструкций с официального сайта: [https://golang.org/](https://golang.org/).
+1. Воспользуйтесь инструкцией с официального сайта: [https://golang.org/](https://golang.org/).
 2. Так же для тестирования кода можно использовать песочницу: [https://play.golang.org/](https://play.golang.org/).
 
 ### Ответ:
-Решил использовать golang.org
+До этого использовал PyCharm бесплатный. Сейчас решил использовать golang.org чтобы не тратить 30 дней триала.
 
 ## Задача 2. Знакомство с gotour.
 У Golang есть обучающая интерактивная консоль [https://tour.golang.org/](https://tour.golang.org/).
@@ -17,6 +17,7 @@
 
 ### Ответ:
 
+Прошел некоторое количество.
 
 ## Задача 3. Написание кода.
 Цель этого задания закрепить знания о базовом синтаксисе языка. Можно использовать редактор кода
@@ -31,13 +32,15 @@
     import "fmt"
 
     func main() {
-        fmt.Print("Enter a number: ")
-        var input float64
-        fmt.Scanf("%f", &input)
+    	fmt.Print("Enter a value of meters: ")
+    	var meter float64
+    	fmt.Scanf("%g", &meter)
+    	fmt.Println(Converter(meter))
+    }
 
-        output := input * 2
-
-        fmt.Println(output)    
+    func Converter(meter float64) float64 {
+    	var foot = meter / 3.28
+    	return foot
     }
     ```
 
@@ -48,6 +51,73 @@
 1. Напишите программу, которая выводит числа от 1 до 100, которые делятся на 3. То есть `(3, 6, 9, …)`.
 
 В виде решения ссылку на код или сам код.
+
+### Ответ:
+
+1. Программа перевода метров в футы.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Print("Meter: ")
+	var input float64
+	fmt.Scanf("%f", &input)
+
+	output := input / 3.28
+
+	fmt.Print(input, "m = ", output, "ft")
+}
+```
+
+2. Программа определения минимального значения.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	arr := []int{48, 96, 86, 68, 57, 82, 63, 70, 37, 34, 83, 27, 19, 97, 9, 17}
+	fmt.Println("Min = ", Min(arr))
+}
+
+func Min(arr []int) int {
+	min := arr[0]
+	for _, value := range arr {
+		if value < min {
+			min = value
+		}
+	}
+	return min
+}
+```
+
+3. Программа вывода кратных значений.
+
+ ```go
+ package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Println(Multiply(0, 100, 3))
+}
+
+func Multiply(from int, to int, factor int) []int {
+	var arr []int
+	for i := from; i <= to; i++ {
+		if i%factor == 0 {
+			arr = append(arr, i)
+		}
+	}
+	return arr
+}
+```
 
 ## Задача 4. Протестировать код (не обязательно).
 
