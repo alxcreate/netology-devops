@@ -40,15 +40,13 @@
     import "fmt"
 
     func main() {
-    	fmt.Print("Enter a value of meters: ")
-    	var meter float64
-    	fmt.Scanf("%g", &meter)
-    	fmt.Println(Converter(meter))
-    }
+        fmt.Print("Enter a number: ")
+        var input float64
+        fmt.Scanf("%f", &input)
 
-    func Converter(meter float64) float64 {
-    	var foot = meter / 3.28
-    	return foot
+        output := input * 2
+
+        fmt.Println(output)    
     }
     ```
 
@@ -70,13 +68,15 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Print("Meter: ")
-	var input float64
-	fmt.Scanf("%f", &input)
+  fmt.Print("Enter a value of meters: ")
+  var meter float64
+  fmt.Scanf("%g", &meter)
+  fmt.Println(Converter(meter))
+}
 
-	output := input / 3.28
-
-	fmt.Print(input, "m = ", output, "ft")
+func Converter(meter float64) float64 {
+  var foot = meter / 3.28
+  return foot
 }
 ```
 
