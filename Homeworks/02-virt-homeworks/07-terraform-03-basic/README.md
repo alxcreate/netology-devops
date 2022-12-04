@@ -33,7 +33,7 @@ dynamodb.
 ### Ответ:
 
 Вывод команды `terraform workspace list`:
-```
+```sh
 alx@alx-laptop terraform % terraform workspace list       
   default
 * prod
@@ -41,7 +41,7 @@ alx@alx-laptop terraform % terraform workspace list
 ```
 
 Вывод команды `terraform plan` для воркспейса `prod`:
-```
+```sh
 alx@alx-laptop terraform % terraform plan
 
 Terraform used the selected providers to generate the following execution plan.
