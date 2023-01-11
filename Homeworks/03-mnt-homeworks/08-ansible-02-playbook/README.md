@@ -21,7 +21,4 @@
 10. Готовый playbook выложите в свой репозиторий, поставьте тег `08-ansible-02-playbook` на фиксирующий коммит, в ответ предоставьте ссылку на него.
 
 ### Ответ:
-
-Описание playbook:
-Playbook выполняет загрузку и установку Clickhouse. Запускает сервис clickhouse-server и создает базу данных. Затем скачивает и устанавливает Vector. Изменяет конфигурацию для дальнейшей работы.
-Playbook имеет параметры для указания необходимых версий Clickhouse и Vector.
+https://github.com/alxcreate/netology-devops/tree/main/Homeworks/03-mnt-homeworks/08-ansible-02-playbook/playbook
