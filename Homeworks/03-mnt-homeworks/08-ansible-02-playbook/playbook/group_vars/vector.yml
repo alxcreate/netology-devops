@@ -1,0 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+      type: clickhouse
+      inputs:
+        - our_log
+      database: custom
+      endpoint: http://0.0.0.0:8123
+      table: my_table
+      compression: gzip
+      healthcheck: false
+      skip_unknown_fields: true

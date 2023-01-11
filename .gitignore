@@ -4,3 +4,4 @@
 *.backup
 private.*
 .DS_Store
+key.json
