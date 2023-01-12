@@ -1,0 +1,12 @@
+---
+clickhouse:
+  hosts:
+    clickhouse:
+      ansible_host:
+      ansible_user: cloud-user
+    vector:
+      ansible_host:
+      ansible_user: cloud-user
+    lighthouse:
+      ansible_host: 
+      ansible_user: cloud-user
