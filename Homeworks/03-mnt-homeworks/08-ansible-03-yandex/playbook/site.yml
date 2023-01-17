@@ -10,7 +10,6 @@
             dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
           with_items: "{{ clickhouse_packages }}"
           check_mode: false
-
       rescue:
         - name: Get clickhouse distrib
           ansible.builtin.get_url:
@@ -45,13 +44,64 @@
           state: restarted
 
 - name: Install Vector
-  hosts: clickhouse
+  hosts: vector
   tasks:
 
-    - name: Vector Install
+    - name: Install Vector
       become: true
       ansible.builtin.yum:
         name: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.x86_64.rpm"
+        state: present
+        install_weak_deps: true
+        disable_gpg_check: true
+      notify: Start Vector service
+
+  handlers:
+    - name: Start Vector service
+      become: true
+      ansible.builtin.service:
+        name: vector
+        state: restarted
+
+- name: Install nginx
+  hosts: lighthouse
+  handlers:
+    - name: Start nginx
+      become: true
+      command: nginx
+    - name: Restart nginx
+      become: true
+      command: nginx -s reload
+  tasks:
+    - name: Add epel-release repo
+      becoe: true
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+    - name: Install nginx
+      becoe: true
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+      notify: Start nginx
+    - name: Insert Index Page
+      template:
+        src: template/nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        mode: 0644
+      notify: Restart nginx
+    - name: Start NGiNX
+      service:
+        name: nginx
+        state: started
+
+
+
+
+    - name: Install Lighthouse
+      become: true
+      ansible.builtin.yum:
+        name: "https://packages.timber.io/vector/
         state: present
         install_weak_deps: true
         disable_gpg_check: true
