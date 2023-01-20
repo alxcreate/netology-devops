@@ -44,11 +44,12 @@
     - name: Install Vector
       become: true
       ansible.builtin.yum:
-        name: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.x86_64.rpm"
+        name: "https://packages.timber.io/vector/0.26.0/vector-0.26.0-1.x86_64.rpm"
+        disable_gpg_check: true
         state: present
     - name: Vector config
       ansible.builtin.template:
-        src: template/vector.yml.j2
+        src: templates/vector.yml.j2
         dest: vector.yml
         mode: "0644"
         owner: "{{ ansible_user_id }}"
@@ -57,7 +58,7 @@
     - name: Vector service
       become: true
       ansible.builtin.template:
-        src: template/vector.service.j2
+        src: vector.service.j2
         dest: /etc/systemd/system/vector.service
         mode: "0644"
         owner: "{{ ansible_user_id }}"
@@ -83,19 +84,19 @@
       command: nginx -s reload
   tasks:
     - name: Add epel-release repo
-      becoe: true
+      become: true
       ansible.builtin.yum:
         name: epel-release
         state: present
     - name: Install nginx
-      becoe: true
+      become: true
       ansible.builtin.yum:
         name: nginx
         state: present
       notify: Start nginx
     - name: Copy config nginx
       template:
-        src: template/nginx.conf.j2
+        src: templates/nginx.conf.j2
         dest: /etc/nginx/nginx.conf
         mode: "0644"
       notify: Restart nginx
@@ -121,7 +122,7 @@
     - name: Lighthouse config
       become: true
       template:
-        src: template/lighthouse.conf.j2
+        src: templates/lighthouse.conf.j2
         dest: /etc/nginx/conf.d/default.conf
         mode: "0644"
       notify: Restart nginx

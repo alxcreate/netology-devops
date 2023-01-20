@@ -7,13 +7,13 @@ sources:
     ignore_older: 600
     read_from: beginning
 sinks:
-  clickhouse_cluster:
+  to_clickhouse:
     inputs:
       - our_log
     type: clickhouse
     database: custom
     table: my_table
-    endpoints: ['http://         :9200']
+    endpoints: http://62.84.126.56:8123
     healthcheck: false
     compression: gzip
     skip_unknown_fields: true
