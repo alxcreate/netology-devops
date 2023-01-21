@@ -49,12 +49,12 @@
         state: present
     - name: Vector config
       ansible.builtin.template:
-        src: templates/vector.yml.j2
+        src: vector.yml.j2
         dest: vector.yml
         mode: "0644"
         owner: "{{ ansible_user_id }}"
         group: "{{ ansible_user_gid }}"
-        validate: vector validate --noenvironment --config-yaml %s
+        validate: vector validate --no-environment --config-yaml %s
     - name: Vector service
       become: true
       ansible.builtin.template:
