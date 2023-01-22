@@ -38,3 +38,5 @@
 ## Ответ:
 
 ![](img/1.png)
+
+https://github.com/alxcreate/netology-devops/blob/main/Homeworks/03-mnt-homeworks/09-ci-01-intro/My%20Workflow.xml
