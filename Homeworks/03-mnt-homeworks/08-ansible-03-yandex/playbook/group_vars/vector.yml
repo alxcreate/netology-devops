@@ -1,5 +1,5 @@
 ---
-vector_config:
+vector_url:
   data_dir: "/var/lib/vector"
   sources:
     our_log:
@@ -15,7 +15,7 @@ vector_config:
       type: clickhouse
       database: custom
       table: my_table
-      endpoints: "http://51.250.90.79:8123"
+      endpoints: "http://158.160.56.22:8123"
       healthcheck: false
       compression: gzip
       skip_unknown_fields: true
