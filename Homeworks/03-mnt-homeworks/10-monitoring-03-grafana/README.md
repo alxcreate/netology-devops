@@ -83,6 +83,9 @@ node_filesystem_free_bytes{instance="node-exporter:9100", fstype="tmpfs", mountp
 
 В решении задания - приведите листинг этого файла.
 
+### Ответ:
+
+[Dashboard](https://github.com/alxcreate/netology-devops/blob/main/Homeworks/03-mnt-homeworks/10-monitoring-03-grafana/grafana-dashboard.json)
 ---
 
 ### Как оформить ДЗ?
