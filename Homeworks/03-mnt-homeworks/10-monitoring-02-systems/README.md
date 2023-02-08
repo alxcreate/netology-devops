@@ -81,7 +81,7 @@ PUSH
 
 ### Ответ:
 
-![](img/01.jpeg)
+![](img/1.jpeg)
 
 #
 8. Перейдите в веб-интерфейс Chronograf (`http://localhost:8888`) и откройте вкладку `Data explorer`.
@@ -98,7 +98,7 @@ PUSH
 
 ### Ответ:
 
-![](img/02.jpeg)
+![](img/2.jpeg)
 
 #
 9. Изучите список [telegraf inputs](https://github.com/influxdata/telegraf/tree/master/plugins/inputs).
@@ -132,7 +132,7 @@ PUSH
 
 ### Ответ:
 
-![](img/03.jpeg)
+![](img/3.jpeg)
 
 
 ### Как оформить ДЗ?
