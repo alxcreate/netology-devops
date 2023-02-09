@@ -1,0 +1,73 @@
+version: '3.7'
+services:
+  elasticsearch-hot-node:
+    image: elasticsearch:7.17.9
+    environment:
+      - node.name=hot_node
+      - discovery.seed_hosts=elasticsearch-warm-node
+      - cluster.initial_master_nodes=hot_node,warm_node
+      - cluster.name=my_cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata-hot:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  elasticsearch-warm-node:
+    image: elasticsearch:7.17.9
+    environment:
+      - node.name=warm_node
+      - discovery.seed_hosts=elasticsearch-hot-node
+      - cluster.initial_master_nodes=hot_node,warm_node
+      - cluster.name=my_cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata-warm:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
+
+  logstash:
+    image: logstash:7.17.9
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - 5044:5044
+    depends_on:
+      - elasticsearch-hot-node
+      - elasticsearch-warm-node
+
+  kibana:
+    image: kibana:7.17.9
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch-hot-node:9200
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch-hot-node:9200","http://elasticsearch-warm-node:9200"]'
+    depends_on:
+      - elasticsearch-hot-node
+      - elasticsearch-warm-node
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.17.9
+    platform: linux/amd64
+    privileged: true
+    user: root
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/log/:/var/log/
+    depends_on:
+      - logstash
+
+volumes:
+  esdata-hot:
+  esdata-warm:

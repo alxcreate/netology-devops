@@ -1,0 +1,16 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/nginx/*.log
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+setup.template.settings:
+  index.number_of_shards: 3
