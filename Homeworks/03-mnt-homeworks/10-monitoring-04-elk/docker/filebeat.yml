@@ -1,8 +1,7 @@
 filebeat.inputs:
-- type: log
-  enabled: true
-  paths:
-    - /var/log/nginx/*.log
+  - type: container
+    paths:
+      - '/var/lib/docker/containers/*/*.log'
 
 filebeat.config.modules:
   path: ${path.config}/modules.d/*.yml
@@ -12,5 +11,5 @@ filebeat.config.modules:
 output.logstash:
   hosts: ["logstash:5044"]
 
-setup.template.settings:
-  index.number_of_shards: 3
+logging.json: true
+logging.metrics.enabled: false

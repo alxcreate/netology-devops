@@ -1,11 +1,12 @@
 version: '3.7'
 services:
-  elasticsearch-hot-node:
+  hot-node:
     image: elasticsearch:7.17.9
+    container_name: hot-node
     environment:
-      - node.name=hot_node
-      - discovery.seed_hosts=elasticsearch-warm-node
-      - cluster.initial_master_nodes=hot_node,warm_node
+      - node.name=hot-node
+      - discovery.seed_hosts=warm-node
+      - cluster.initial_master_nodes=hot-node,warm_node
       - cluster.name=my_cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -17,13 +18,18 @@ services:
       - esdata-hot:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    networks:
+      - elastic
+    depends_on:
+      - warm-node
 
-  elasticsearch-warm-node:
+  warm-node:
     image: elasticsearch:7.17.9
+    container_name: warm_node
     environment:
       - node.name=warm_node
-      - discovery.seed_hosts=elasticsearch-hot-node
-      - cluster.initial_master_nodes=hot_node,warm_node
+      - discovery.seed_hosts=hot-node
+      - cluster.initial_master_nodes=hot-node,warm_node
       - cluster.name=my_cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -33,41 +39,69 @@ services:
         hard: -1
     volumes:
       - esdata-warm:/usr/share/elasticsearch/data
-    ports:
-      - 9201:9200
+    networks:
+      - elastic
 
   logstash:
     image: logstash:7.17.9
     volumes:
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+#      - ./logstash/logstash.yml:/opt/logstash/config/logstash.yml
     ports:
       - 5044:5044
     depends_on:
-      - elasticsearch-hot-node
-      - elasticsearch-warm-node
+      - hot-node
+      - warm-node
+    networks:
+      - elastic
 
   kibana:
     image: kibana:7.17.9
     ports:
       - 5601:5601
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch-hot-node:9200
-      ELASTICSEARCH_HOSTS: '["http://elasticsearch-hot-node:9200","http://elasticsearch-warm-node:9200"]'
+      ELASTICSEARCH_URL: http://hot-node:9200
+      ELASTICSEARCH_HOSTS: '["http://hot-node:9200","http://warm-node:9200"]'
     depends_on:
-      - elasticsearch-hot-node
-      - elasticsearch-warm-node
+      - hot-node
+      - warm-node
+    networks:
+      - elastic
 
   filebeat:
-    image: docker.elastic.co/beats/filebeat:7.17.9
-    platform: linux/amd64
+    image: elastic/filebeat:7.17.9
+#    platform: linux/amd64
     privileged: true
     user: root
     volumes:
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
       - /var/log/:/var/log/
+      - /var/lib/docker:/var/lib/docker
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - logstash
+    networks:
+      - elastic
+
+  some_application:
+    image: library/python:3.9-alpine
+    container_name: some_app
+    volumes:
+      - ./pinger/run.py:/opt/run.py:Z
+    entrypoint: python3 /opt/run.py
+    networks:
+    - elastic
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:5044"
+        tag: some_application
+
 
 volumes:
   esdata-hot:
   esdata-warm:
+
+networks:
+  elastic:
+    driver: bridge
