@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Feb 17 15:31:39 CET 2023
+@default-default-http\://0.0.0.0/.lastUpdated=1676644298125
+http\://0.0.0.0/.error=Could not transfer artifact netology\:java\:pom\:8_282 from/to default (http\://0.0.0.0/)\: Blocked mirror for repositories\: [my-repo (http\://158.160.57.240\:8081/repository/maven-public/, default, releases+snapshots)]
+https\://repo.maven.apache.org/maven2/.lastUpdated=1676644299127
+https\://repo.maven.apache.org/maven2/.error=
