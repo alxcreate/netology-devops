@@ -1,7 +1,7 @@
 ---
 user_group: "{{ jenkins_user_group }}"
 user_name: "{{ jenkins_user_name }}"
-jenkins_user_name: jenkins
+jenkins_user_name: cloud-user
 jenkins_user_group: jenkins
 java_packages:
   - java-11-openjdk-devel
