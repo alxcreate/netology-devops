@@ -17,6 +17,6 @@ nexus_port_check_timeout: 600
 nexus_edition: nexus-oss-edition
 nexus_features: nexus-oss-feature
 nexus_java_heap_size: 1200M
-nexus_java_max_direct_memory: 1G
+nexus_java_max_direct_memory: 2G
 nexus_service_start_on_boot: true
 nexus_configuration_disk_free_space_limit: ~

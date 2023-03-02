@@ -15,7 +15,7 @@ resource "yandex_compute_instance" "vm" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8151sv1q69mchl804a"
+      image_id = "fd8jvcoeij6u9se84dt5"
       name     = "root-vm"
       type     = "network-nvme"
       size     = "50"
