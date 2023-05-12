@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: netology-web
+  labels:
+    app: netology-web
+spec:
+  containers:
+  - name: echoserver-arm-container
+    image: gcr.io/kubernetes-e2e-test-images/echoserver-arm:2.2
+    ports:
+    - containerPort: 8080
