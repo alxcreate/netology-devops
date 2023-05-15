@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deployment-app
+  template:
+    metadata:
+      labels:
+        app: deployment-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+      - name: multitool
+        image: wbitt/network-multitool:latest
+        ports:
+        - containerPort: 1180
+        command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: deployment-app-service
+spec:
+  selector:
+    app: deployment-app
+  ports:
+  - name: nginx-port
+    port: 80
+    targetPort: 80
+  - name: multitool-port
+    port: 1180
+    targetPort: 1180
+  type: LoadBalancer

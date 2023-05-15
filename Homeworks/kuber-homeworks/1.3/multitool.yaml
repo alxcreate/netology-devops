@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multitool-pod
+spec:
+  containers:
+  - name: multitool
+    image: wbitt/network-multitool:latest
+    ports:
+    - containerPort: 1180
+    command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
