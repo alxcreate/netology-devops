@@ -3,25 +3,35 @@ kind: Deployment
 metadata:
   name: deployment-app2
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx
-  replicas: 1
+      app: deployment-app2
   template:
     metadata:
       labels:
-        app: nginx
+        app: deployment-app2
     spec:
+      initContainers:
+      - name: busybox-init
+        image: busybox
+        command: ['sh', '-c', "until nslookup nginx-service.default.svc.cluster.local >/dev/null 2>&1; do echo waiting for service; sleep 1; done;"]
       containers:
       - name: nginx
         image: nginx
         ports:
         - containerPort: 80
-        readinessProbe:
-          httpGet:
-            path: /index.html
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
-      imagePullSecrets:
-        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

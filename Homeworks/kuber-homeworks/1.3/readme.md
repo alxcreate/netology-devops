@@ -32,7 +32,7 @@
 
 ### Ответ
 
-1. Создан файл с конфигурацией деплоймента:
+1. Создан [манифест](deployment-app.yaml) деплоймента. Проблема была в завершении контейнера multitool. Добавлена команда которая не позволяет ему остановиться.
 
 ```yaml
 apiVersion: apps/v1
@@ -61,6 +61,8 @@ spec:
         command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
 ```
 
+Запуск `kubectl apply -f deployment-app.yaml`
+
 2. Для изменения количества реплик изменен параметр `replicas` на 2.
 
 ```yaml
@@ -72,11 +74,10 @@ spec:
 
 ![Alt text](img/change-replicas.png)
 
-4. Для создания сервисадля доступа к репликам в файл деплоймента добавлена конфиругация:
+4. Создание сервиса для доступа к репликам:
 
 ```yaml
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -94,7 +95,7 @@ spec:
   type: LoadBalancer
   ```
 
-5.Создан отдельный pod:
+5. Создан [отдельный pod](multitool.yaml):
 
 ```yaml
 apiVersion: v1
@@ -110,9 +111,16 @@ spec:
     command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
 ```
 
-Подключение к pod'у и проверка доступности приложения из деплоймента:
+Запуск `kubectl apply -f multitool.yaml`
+
+Подключение к pod'у и проверка доступности приложения:
 
 ![Alt text](img/test-app.png)
+
+Проверка по имени ресурса:
+![Alt text](img/test-app-name.png)
+
+Удаление деплоймента `kubectl delete -f deployment-app.yaml` и pod `kubectl delete pods multitool-pod`
 
 ------
 
@@ -125,7 +133,7 @@ spec:
 
 ### Ответ
 
-1. Создан файл конфигурации делоймента nginx с проверкой:
+1. Создан [манифест](deployment-app2.yaml) nginx:
 
 ```yaml
 apiVersion: apps/v1
@@ -133,34 +141,60 @@ kind: Deployment
 metadata:
   name: deployment-app2
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx
-  replicas: 1
+      app: deployment-app2
   template:
     metadata:
       labels:
-        app: nginx
+        app: deployment-app2
     spec:
       containers:
       - name: nginx
         image: nginx
         ports:
         - containerPort: 80
-        readinessProbe:
-          httpGet:
-            path: /index.html
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
-      imagePullSecrets:
-        - name: regcred
 ```
 
+2. В конфигурацию добавлен init-контейнер:
 
-2. Убедиться, что nginx не стартует. В качестве Init-контейнера взять busybox.
-3. Создать и запустить Service. Убедиться, что Init запустился.
-4. Продемонстрировать состояние пода до и после запуска сервиса.
+```yaml
+      initContainers:
+      - name: busybox-init
+        image: busybox
+        command: ['sh', '-c', "until nslookup nginx-service.default.svc.cluster.local >/dev/null 2>&1; do echo waiting for service; sleep 1; done;"]
+```
+
+Запуск `kubectl apply -f deployment-app2.yaml`
+
+Контейнер не запускается.
+
+3. В конфигурацию добавлен Service:
+
+```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+```
+
+Запуск `kubectl apply -f deployment-app2.yaml`
+
+Контейнер init выполнился т.к. прошла проверка доступности сервиса. Запустился основной контейнер сервиса.
+
+Состояние пода до и после запуска сервиса:
+
+![Alt text](img/app2-service.png)
 
 ------
 

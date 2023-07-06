@@ -32,11 +32,8 @@
 
 ## Ответ:
 
-Репозиторий playbook:
-https://github.com/alxcreate/ansible_playbook_17
+[playbook](ansible_playbook_17)
 
-Репозиторий Lighthouse-role:
-https://github.com/alxcreate/lighthouse
+[Lighthouse-role](lighthouse)
 
-Репозиторий Vector-role:
-https://github.com/alxcreate/vector
+[Vector-role](vector)

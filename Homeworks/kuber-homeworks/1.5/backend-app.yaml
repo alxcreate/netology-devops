@@ -1,22 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-app
+  name: backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: deployment-app
+      app: backend
   template:
     metadata:
       labels:
-        app: deployment-app
+        app: backend
     spec:
       containers:
-      - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 80
       - name: multitool
         image: wbitt/network-multitool:latest
         env:
@@ -29,21 +25,17 @@ spec:
           name: http-port
         - containerPort: 11443
           name: https-port  
-        command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: deployment-app-service
+  name: backend-service
 spec:
+  type: ClusterIP
   selector:
-    app: deployment-app
+    app: backend
   ports:
-  - name: nginx-port
-    port: 80
-    targetPort: 80
-  - name: multitool-port
-    port: 1180
-    targetPort: 1180
-  type: LoadBalancer
+    - name: http
+      port: 80
+      targetPort: 1180

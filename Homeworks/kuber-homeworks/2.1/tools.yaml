@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tools
+  template:
+    metadata:
+      labels:
+        app: tools
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          command: ["/bin/sh", "-c", "while true; do echo $(date) >> /shared/file.txt; sleep 5; done"]
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /shared
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          env:
+            - name: HTTP_PORT
+              value: "1180"
+            - name: HTTPS_PORT
+              value: "11443"
+          ports:
+            - containerPort: 1180
+              name: http-port
+            - containerPort: 11443
+              name: https-port
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /shared
+      volumes:
+        - name: shared-volume
+          emptyDir: {}

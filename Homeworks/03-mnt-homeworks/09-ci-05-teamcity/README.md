@@ -66,4 +66,4 @@
 
 19. В ответ предоставьте ссылку на репозиторий
 
-[Ссылка на репозиторий](https://github.com/alxcreate/example-teamcity)
+[Ссылка](example-teamcity)

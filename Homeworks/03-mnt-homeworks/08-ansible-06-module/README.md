@@ -197,6 +197,6 @@ if __name__ == '__main__':
 ![](img/15-16.png)
 
 
-[Collection](https://github.com/alxcreate/my_own_collection)
+[Collection](my_own_collection)
 
-[my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz](https://github.com/alxcreate/netology-devops/tree/main/Homeworks/03-mnt-homeworks/08-ansible-06-module/homework2/test)
+[my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz](homework2/test)

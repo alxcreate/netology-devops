@@ -22,4 +22,5 @@
 ---
 
 ## Ответ:
-https://github.com/alxcreate/netology-devops/tree/main/Homeworks/03-mnt-homeworks/08-ansible-03-yandex/playbook
+
+[Playbook](playbook)
