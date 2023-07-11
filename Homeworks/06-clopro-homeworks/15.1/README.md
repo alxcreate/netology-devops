@@ -29,6 +29,22 @@ Resource Terraform для Yandex Cloud:
 - [Route table](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_route_table).
 - [Compute Instance](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/compute_instance).
 
+### Ответ
+
+[Манифест Terraform](terraform-yc/terraform.tf)
+
+После применения в Яндекс облаке создаются виртуальные машины с настроенной сетью:
+
+![Alt text](img/instances.png)
+
+Выполняется подключение по ssh к виртуальной машине public-instance по внешнему адресу и проверяется доступ в интернет:
+
+![Alt text](img/test-public.png)
+
+С машины public-instance выполняется подключение по ssh к private_instance и проверяется доступ в интернет через nat-instance:
+
+![Alt text](img/test-private.png)
+
 ---
 ### Задание 2. AWS* (задание со звёздочкой)
 
