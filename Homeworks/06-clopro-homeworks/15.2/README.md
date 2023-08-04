@@ -75,8 +75,6 @@ resource "yandex_storage_object" "iceberg" {
 }
 ```
 
-[Манифест object-storages.tf](terraform-yc/object-storages.tf)
-
 2. Создать группу ВМ в public подсети фиксированного размера с шаблоном LAMP и веб-страницей, содержащей ссылку на картинку из бакета:
 
 - Создать Instance Group с тремя ВМ и шаблоном LAMP. Для LAMP рекомендуется использовать `image_id = fd827b91d99psvq5fjit`.
