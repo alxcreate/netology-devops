@@ -5,3 +5,4 @@
 private.*
 .DS_Store
 key.json
+terraform.tfvars
