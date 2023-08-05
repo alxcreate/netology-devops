@@ -121,7 +121,7 @@ aws --endpoint-url=https://storage.yandexcloud.net \
 
 - создать статическую страницу в Object Storage и применить сертификат HTTPS;
 
-Создаем страницу и загружаем файл index.html и загружаем в бакет:
+Создаем страницу index.html и загружаем в бакет:
 
 ![Alt text](img/upload-index.png)
 
