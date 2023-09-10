@@ -52,6 +52,11 @@
 1. Terraform сконфигурирован и создание инфраструктуры посредством Terraform возможно без дополнительных ручных действий.
 2. Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.
 
+### Ответ
+
+1. Создан [репозиторий](https://github.com/alxcreate/my-app-tf) с облачной конфигурацией . Используются подсети в трех доступных зонах.
+2. Для применения используется [Terraform Cloud](https://app.terraform.io/) и один workspace: *stage*.
+
 ---
 
 ### Создание Kubernetes кластера
@@ -74,6 +79,11 @@
 2. В файле `~/.kube/config` находятся данные для доступа к кластеру.
 3. Команда `kubectl get pods --all-namespaces` отрабатывает без ошибок.
 
+### Ответ
+
+1. Для создания кластера Kubernetes используется сервис [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)
+2. Создан [манифест](https://github.com/alxcreate/my-app-tf/blob/main/kubernetes-cluster.tf) с региональным кластером yandex_kubernetes_cluster и тремя yandex_kubernetes_node_group для размещения нод в разных подсетях.
+
 ---
 
 ### Создание тестового приложения
@@ -92,6 +102,11 @@
 
 1. Git репозиторий с тестовым приложением и Dockerfile.
 2. Регистр с собранным docker image. В качестве регистра может быть DockerHub или [Yandex Container Registry](https://cloud.yandex.ru/services/container-registry), созданный также с помощью terraform.
+
+### Ответ
+
+1. Создан [репозиторий]() с файлом Dockerfile - nginx со статичными файлами для сайта
+2. 
 
 ---
 
