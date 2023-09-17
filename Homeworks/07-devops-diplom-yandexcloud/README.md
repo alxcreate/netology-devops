@@ -57,8 +57,6 @@
 1. Создан [репозиторий](https://github.com/alxcreate/app-tf) с использованием Yandex Managed Service for Kubernetes. Используются подсети в трех доступных зонах;
 2. Для применения используется [Terraform Cloud](https://app.terraform.io/) и один workspace: *stage*.
 
-![Alt text](img/terraform-1.png)
-
 ![Alt text](img/terraform-2.png)
 
 ![Alt text](img/terraform-3.png)
