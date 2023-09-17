@@ -59,6 +59,8 @@
 1. Создан [репозиторий](https://github.com/alxcreate/app-tf) с использованием Yandex Managed Service for Kubernetes. Используются подсети в трех доступных зонах;
 2. Для применения используется [Terraform Cloud](https://app.terraform.io/) и один workspace: *stage*.
 
+![Alt text](img/terraform-1.png)
+
 ![Alt text](img/terraform-2.png)
 
 ![Alt text](img/terraform-3.png)
@@ -91,8 +93,6 @@
 1. Для создания кластера Kubernetes используется сервис [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes). Создан [манифест](https://github.com/alxcreate/app-tf/blob/main/kubernetes-cluster.tf) с региональным кластером yandex_kubernetes_cluster и тремя yandex_kubernetes_node_group для размещения нод в разных регионах;
 
 ![Alt text](img/lens-1.png)
-
-![Alt text](img/lens-2.png)
 
 2. Получение файла `~/.kube/config` выполняется в [start.sh](https://github.com/alxcreate/kubernetes-conf/blob/main/start.sh);
 3. Следом выполняется команда `kubectl get pods --all-namespaces`.
@@ -158,7 +158,7 @@
 
 1. [Репозиторий](https://github.com/alxcreate/kubernetes-conf) с конфигурационными файлами для настройки Kubernetes;
 
-![Alt text](img/lens-3.png)
+![Alt text](img/lens-2.png)
 
 2. Обеспечен [доступ к web интерфейсу Grafana](http://158.160.49.41:3000/dashboards/f/e3698671-c1f7-4c68-8460-8ad3bd91f993/default) через внешний ip сервиса;
 
