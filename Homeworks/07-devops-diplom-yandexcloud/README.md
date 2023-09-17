@@ -197,6 +197,8 @@
 
 ![Alt text](img/github-actions.png)
 
+![Alt text](img/github-actions-keys.png)
+
 2. Создан [workflow](https://github.com/alxcreate/app-docker/blob/v1.0.0.0/.github/workflows/docker-image.yml) - при изменении приложения репозитории [app-docker](https://github.com/alxcreate/app-docker) выполняется сборка образа, отправка на [hub.docker.com](https://hub.docker.com/repository/docker/alxcreate/app/general);
 
 ![Alt text](img/github-actions-test1.png)
