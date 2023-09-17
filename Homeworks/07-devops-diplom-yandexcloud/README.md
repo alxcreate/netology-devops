@@ -54,9 +54,16 @@
 
 ### Ответ
 
-1. Создан [репозиторий](https://github.com/alxcreate/my-app-tf) с облачной конфигурацией . Используются подсети в трех доступных зонах.
+1. Создан [репозиторий](https://github.com/alxcreate/app-tf) с облачной конфигурацией. Используются подсети в трех доступных зонах;
 2. Для применения используется [Terraform Cloud](https://app.terraform.io/) и один workspace: *stage*.
 
+![Alt text](img/terraform-1.png)
+
+![Alt text](img/terraform-2.png)
+
+![Alt text](img/terraform-3.png)
+
+![Alt text](img/terraform-4.png)
 ---
 
 ### Создание Kubernetes кластера
@@ -81,8 +88,16 @@
 
 ### Ответ
 
-1. Для создания кластера Kubernetes используется сервис [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)
-2. Создан [манифест](https://github.com/alxcreate/my-app-tf/blob/main/kubernetes-cluster.tf) с региональным кластером yandex_kubernetes_cluster и тремя yandex_kubernetes_node_group для размещения нод в разных подсетях.
+1. Для создания кластера Kubernetes используется сервис [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes). Создан [манифест](https://github.com/alxcreate/app-tf/blob/main/kubernetes-cluster.tf) с региональным кластером yandex_kubernetes_cluster и тремя yandex_kubernetes_node_group для размещения нод в разных регионах;
+
+![Alt text](img/lens-1.png)
+
+![Alt text](img/lens-2.png)
+
+2. Получение файла `~/.kube/config` выполняется в [start.sh](https://github.com/alxcreate/kubernetes-conf/blob/main/start.sh);
+3. Следом выполняется команда `kubectl get pods --all-namespaces`.
+
+![Alt text](img/kubernetes-get-pods.png)
 
 ---
 
@@ -105,8 +120,8 @@
 
 ### Ответ
 
-1. Создан [репозиторий]() с файлом Dockerfile - nginx со статичными файлами для сайта
-2. 
+1. Создан [репозиторий](https://github.com/alxcreate/app-docker) со [статическими файлами](https://github.com/alxcreate/app-docker/tree/main/www) для веб-сервера и файлом [Dockerfile](https://github.com/alxcreate/app-docker/blob/main/Dockerfile) для создания образа веб-сервера nginx;
+2. Образ загружен на [DockerHub](https://hub.docker.com/repository/docker/alxcreate/app-docker/) и автоматически обновляется при изменениях через GitHub Actions (описано в части CI/CD).
 
 ---
 
@@ -122,7 +137,7 @@
 
 Рекомендуемый способ выполнения:
 
-1. Воспользовать пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus), который уже включает в себя [Kubernetes оператор](https://operatorhub.io/) для [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), [alertmanager](https://github.com/prometheus/alertmanager) и [node_exporter](https://github.com/prometheus/node_exporter). При желании можете собрать все эти приложения отдельно.
+1. Воспользоваться пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus), который уже включает в себя [Kubernetes оператор](https://operatorhub.io/) для [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), [alertmanager](https://github.com/prometheus/alertmanager) и [node_exporter](https://github.com/prometheus/node_exporter). При желании можете собрать все эти приложения отдельно.
 2. Для организации конфигурации использовать [qbec](https://qbec.io/), основанный на [jsonnet](https://jsonnet.org/). Обратите внимание на имеющиеся функции для интеграции helm конфигов и [helm charts](https://helm.sh/)
 3. Если на первом этапе вы не воспользовались [Terraform Cloud](https://app.terraform.io/), то задеплойте в кластер [atlantis](https://www.runatlantis.io/) для отслеживания изменений инфраструктуры.
 
@@ -136,6 +151,26 @@
 2. Http доступ к web интерфейсу grafana.
 3. Дашборды в grafana отображающие состояние Kubernetes кластера.
 4. Http доступ к тестовому приложению.
+
+### Ответ
+
+Использован [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) для запуска всех компонентов мониторинга. Ручной запуск установки осуществляется скриптом [start.sh](https://github.com/alxcreate/kubernetes-conf/blob/main/start.sh).
+
+1. [Репозиторий](https://github.com/alxcreate/kubernetes-conf) с конфигурационными файлами для настройки Kubernetes;
+
+![Alt text](img/lens-3.png)
+
+2. Обеспечен доступ к web интерфейсу Grafana через внешний ip сервиса;
+
+![Alt text](img/grafana-web.png)
+
+3. Автоматически созданы дашборды в Grafana;
+
+![Alt text](img/grafana-dashboards.png)
+
+4. Обеспечен доступ к web интерфейсу приложения через внешний ip сервиса.
+
+![Alt text](img/app-web.png)
 
 ---
 
@@ -153,20 +188,38 @@
 Ожидаемый результат:
 
 1. Интерфейс ci/cd сервиса доступен по http.
-2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.
+2. При любом коммите в репозитории с тестовым приложением происходит сборка и отправка в регистр Docker образа.
 3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистр, а также деплой соответствующего Docker образа в кластер Kubernetes.
+
+### Ответ
+
+1. Используется [GitHub Actions](https://github.com/alxcreate/app-docker/blob/main/.github/workflows/docker-image.yml);
+
+![Alt text](img/github-actions.png)
+
+2. Создан [workflow](https://github.com/alxcreate/app-docker/blob/v1.0.0.0/.github/workflows/docker-image.yml) - при изменении приложения репозитории [app-docker](https://github.com/alxcreate/app-docker) выполняется сборка образа, отправка на [hub.docker.com](https://hub.docker.com/repository/docker/alxcreate/app/general);
+
+![Alt text](img/github-actions-test1.png)
+
+3. Настроен workflow который выполняет проверку тега. При его обновлении происходит сборка образа с этим лейблом, загрузка на hub.docker.com и инициируется деплой образа в кластер kubernetes.
+
+![Alt text](img/github-actions-test2.png)
+
+![Alt text](img/docker-images.png)
 
 ---
 
 ## Что необходимо для сдачи задания?
 
-1. Репозиторий с конфигурационными файлами Terraform и готовность продемонстрировать создание всех ресурсов с нуля.
+1. [Репозиторий с конфигурационными файлами Terraform](https://github.com/alxcreate/app-tf) и готовность продемонстрировать создание всех ресурсов с нуля.
 2. Пример pull request с комментариями созданными atlantis'ом или снимки экрана из Terraform Cloud.
 3. Репозиторий с конфигурацией ansible, если был выбран способ создания Kubernetes кластера при помощи ansible.
-4. Репозиторий с Dockerfile тестового приложения и ссылка на собранный docker image.
-5. Репозиторий с конфигурацией Kubernetes кластера.
-6. Ссылка на тестовое приложение и веб интерфейс Grafana с данными доступа.
+4. [Репозиторий с Dockerfile](https://github.com/alxcreate/app-docker) тестового приложения и [ссылка на собранный docker image](https://hub.docker.com/r/alxcreate/app/tags).
+5. [Репозиторий с конфигурацией Kubernetes](https://github.com/alxcreate/kubernetes-conf) кластера.
+6. Ссылка на [тестовое приложение](http://158.160.62.147/) и веб [интерфейс Grafana](http://158.160.49.41:3000/dashboards/f/e3698671-c1f7-4c68-8460-8ad3bd91f993/default) с данными доступа (admin/admin1).
 7. Все репозитории рекомендуется хранить на одном ресурсе (github, gitlab)
+
+![Alt text](img/files.png)
 
 ---
 
