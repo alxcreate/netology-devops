@@ -1,0 +1,8 @@
+*.lock.hcl
+*.tfstate*
+.terraform
+*.backup
+private.*
+.DS_Store
+key.json
+terraform.tfvars
