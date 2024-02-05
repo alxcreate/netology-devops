@@ -9,15 +9,17 @@
 Воспользуйтесь командой `\?` для вывода подсказки по имеющимся в `psql` управляющим командам.
 
 **Найдите и приведите** управляющие команды для:
+
 - вывода списка БД
 - подключения к БД
 - вывода списка таблиц
 - вывода описания содержимого таблиц
 - выхода из psql
 
-### Ответ:
+### Ответ
 
 Docker-compose:
+
 ```
 version: "3"
 services:
@@ -36,7 +38,9 @@ volumes:
   db:
   backup:
 ```
+
 Запуск psql:
+
 ```
 alx@alx-laptop docker % docker-compose up -d
 [+] Running 2/2
@@ -49,7 +53,9 @@ Type "help" for help.
 
 postgres=# \?
 ```
+
 Команды из списка:
+
 ```
   \l[+]   [PATTERN]      list databases
   \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}
@@ -71,20 +77,22 @@ postgres=# \?
 
 Подключитесь к восстановленной БД и проведите операцию ANALYZE для сбора статистики по таблице.
 
-Используя таблицу [pg_stats](https://postgrespro.ru/docs/postgresql/12/view-pg-stats), найдите столбец таблицы `orders` 
+Используя таблицу [pg_stats](https://postgrespro.ru/docs/postgresql/12/view-pg-stats), найдите столбец таблицы `orders`
 с наибольшим средним значением размера элементов в байтах.
 
 **Приведите в ответе** команду, которую вы использовали для вычисления и полученный результат.
 
-### Ответ:
+### Ответ
 
 ```
 postgres=# create database test_database;
 postgres=# \c test_database
 test_database=# \i /tmp/backup/test_dump.sql
 ```
-Столбец таблицы `orders` 
+
+Столбец таблицы `orders`
 с наибольшим средним значением размера элементов в байтах:
+
 ```
 test_database=# analyze;
 ANALYZE
@@ -105,30 +113,37 @@ test_database=# select attname, avg_width from pg_stats where tablename='orders'
 
 Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
 
-### Ответ:
+### Ответ
 
 Создание таблиц:
+
 ```
 test_database=# create table orders_1 (like orders including all);
 CREATE TABLE
 test_database=# create table orders_2 (like orders including all);
 CREATE TABLE
 ```
+
 Создание наследования:
+
 ```
 test_database=# alter table orders_1 inherit orders;
 ALTER TABLE
 test_database=# alter table orders_2 inherit orders;
 ALTER TABLE
 ```
+
 Ограничение партиций:
+
 ```
 test_database=# alter table orders_1 add constraint partition_check check (price > 499);
 ALTER TABLE
 test_database=# alter table orders_2 add constraint partition_check check (price <= 499);
 ALTER TABLE
 ```
+
 Перемещение данных:
+
 ```
 test_database=# INSERT INTO orders_1 SELECT * FROM orders WHERE price > 499;
 INSERT 0 3
@@ -146,10 +161,13 @@ DELETE 8
 
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
 
-### Ответ:
+### Ответ
+
 Создание резервной копии:
+
 ```
 root@7dcdede253da:/# pg_dump -U postgres -d test_database >/tmp/backup/backup_test_database.sql
 ```
+
 Для уникальности значений я бы добавил соответствующий параметр:
 alter table orders add UNIQUE (title);

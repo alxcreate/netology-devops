@@ -8,7 +8,7 @@ resource "yandex_compute_instance" "jenkins-agent-01" {
     cores  = 2
     memory = 4
   }
-    metadata = {
+  metadata = {
     ssh-keys = "jenkins-agent-01:${file("~/.ssh/id_rsa.pub")}"
 
   }

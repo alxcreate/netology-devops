@@ -8,7 +8,7 @@ resource "yandex_compute_instance" "sonar-01" {
     cores  = 2
     memory = 4
   }
-    metadata = {
+  metadata = {
     ssh-keys = "sonar-01:${file("~/.ssh/id_rsa.pub")}"
 
   }

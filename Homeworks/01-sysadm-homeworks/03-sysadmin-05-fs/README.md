@@ -4,7 +4,7 @@
 
 Ok.
 > 2. Могут ли файлы, являющиеся жесткой ссылкой на один объект, иметь разные права доступа и владельца? Почему?
- 
+
 Нет. Права и атрибуты на все жесткие ссылки на одни и те же данные идентичны. Если изменить права/владельца/атрибуты на одной жесткой ссылке, то можно увидеть изменения по всем ссылкам потому как ссылка идет непосредственно на запись на диске.
 
 > 3. Сделайте vagrant destroy на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile следующим:
@@ -166,7 +166,7 @@ Ok.
     vagrant@vagrant:~$ sudo pvcreate /dev/md1
     Physical volume "/dev/md1" successfully created.
 
-Результат: 
+Результат:
 
     vagrant@vagrant:~$ sudo pvdisplay
     --- Physical volume ---
@@ -311,7 +311,7 @@ Ok.
 
     vagrant@vagrant:~$ sudo mount /dev/vg0/lvol0 /home/vagrant/lvol0
 
-> 13. Поместите туда тестовый файл, например wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz.
+> 13. Поместите туда тестовый файл, например wget <https://mirror.yandex.ru/ubuntu/ls-lR.gz> -O /tmp/new/test.gz.
 
     vagrant@vagrant:~$ sudo wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /home/vagrant/lvol0/test.gz
     --2022-07-07 12:54:26--  https://mirror.yandex.ru/ubuntu/ls-lR.gz

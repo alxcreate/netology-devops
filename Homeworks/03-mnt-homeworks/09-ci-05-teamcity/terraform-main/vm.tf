@@ -8,7 +8,7 @@ resource "yandex_compute_instance" "vm" {
     cores  = 2
     memory = 4
   }
-    metadata = {
+  metadata = {
     ssh-keys = "vm:${file("~/.ssh/id_rsa.pub")}"
 
   }

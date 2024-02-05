@@ -2,7 +2,7 @@
 
 > 1. Проверьте список доступных сетевых интерфейсов на вашем компьютере. Какие команды есть для этого в Linux и в Windows?
 
-Linux: 
+Linux:
 
     vagrant@vagrant:~$ ip link
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
@@ -10,7 +10,7 @@ Linux:
     2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
     link/ether 08:00:27:a2:6b:fd brd ff:ff:ff:ff:ff:ff
 
-Windows: 
+Windows:
 
     PS C:\Users\user> netsh interface show interface
     
@@ -21,10 +21,9 @@ Windows:
     Разрешен       Подключен      Выделенный       Беспроводная сеть
     Разрешен       Отключен       Выделенный       Ethernet 2
 
-
 > 2. Какой протокол используется для распознавания соседа по сетевому интерфейсу? Какой пакет и команды есть в Linux для этого?
 
-Используется протокол LLDP. 
+Используется протокол LLDP.
 
     vagrant@vagrant:~$ sudo lldpctl
     -------------------------------------------------------------------------------

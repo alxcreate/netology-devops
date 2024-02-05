@@ -9,11 +9,10 @@
 ![](2.png)
 
 > 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
- 
+
 ![](3.png)
 
 > 4. Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
-
 
     vagrant@vm-1:~/testssl.sh$ ./testssl.sh -U --sneaky https://netology.ru/
     
@@ -111,7 +110,6 @@
     Now try logging into the machine, with:   "ssh 'vagrant@10.0.0.11'"
     and check to make sure that only the key(s) you wanted were added.
 
-
 Подключение:
 
     vagrant@vm-1:~$ ssh vagrant@10.0.0.11
@@ -132,7 +130,6 @@
     This system is built by the Bento project by Chef Software
     More information can be found at https://github.com/chef/bento
     Last login: Sun Jul 24 12:52:44 2022 from 10.0.0.20
-
 
 > 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 

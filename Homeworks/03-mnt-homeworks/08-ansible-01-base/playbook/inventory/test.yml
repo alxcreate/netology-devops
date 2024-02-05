@@ -1,5 +1,5 @@
 ---
-  inside:
-    hosts:
-      localhost:
-        ansible_connection: local
+inside:
+  hosts:
+    localhost:
+      ansible_connection: local

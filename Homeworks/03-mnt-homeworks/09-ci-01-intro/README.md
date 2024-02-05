@@ -1,12 +1,15 @@
 # Домашнее задание к занятию "7.Жизненный цикл ПО"
 
 ## Подготовка к выполнению
+
 1. Получить бесплатную [JIRA](https://www.atlassian.com/ru/software/jira/free)
 2. Настроить её для своей "команды разработки"
 3. Создать доски kanban и scrum
 
 ## Основная часть
+
 В рамках основной части необходимо создать собственные workflow для двух типов задач: bug и остальные типы задач. Задачи типа bug должны проходить следующий жизненный цикл:
+
 1. Open -> On reproduce
 2. On reproduce -> Open, Done reproduce
 3. Done reproduce -> On fix
@@ -16,6 +19,7 @@
 7. Done -> Closed, Open
 
 Остальные задачи должны проходить по упрощённому workflow:
+
 1. Open -> On develop
 2. On develop -> Open, Done develop
 3. Done develop -> On test
@@ -35,7 +39,7 @@
 
 ---
 
-## Ответ:
+## Ответ
 
 ![](img/1.png)
 

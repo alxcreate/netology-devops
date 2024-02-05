@@ -1,5 +1,6 @@
-ansible-clickhouse 
+ansible-clickhouse
 =========
+
 ![Build Status](https://github.com/alexeysetevoi/ansible-clickhouse/actions/workflows/ci.yml/badge.svg?branch=master)
 [![Build Status](https://travis-ci.org/AlexeySetevoi/ansible-clickhouse.svg?branch=master)](https://travis-ci.org/github/AlexeySetevoi/ansible-clickhouse)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/alexeysetevoi/ansible-clickhouse)](https://galaxy.ansible.com/alexeysetevoi/clickhouse)
@@ -10,35 +11,43 @@ Any issues and pr are welcome.
 
 Role Variables
 --------------
+
 F: You can specify a particular version (or `*` for the latest). Please note that downgrade isn't supported.
+
 ```yaml
 clickhouse_version: "19.11.3.11"
 ```
 
 F: You can manage listen ports
+
 ```yaml
 clickhouse_http_port: 8123
 clickhouse_tcp_port: 9000
 clickhouse_interserver_http: 9009
 ```
+
 F: You can add listen ips on top of defaults:
+
 ```yaml
 clickhouse_listen_host_custom:
   - "192.168.0.1"
 ```
 
 F: you can manage ttl query_log:
+
 ```yaml
 clickhouse_query_log_ttl: 'event_date + INTERVAL 7  DELETE'
 ```
 
 F: Or you can specify ips directly e.g. to listen on all ipv4 and ipv6 addresses:
+
 ```yaml
 clickhouse_listen_host:
   - "::"
 ```
 
 F: You can create custom profiles
+
 ```yaml
 clickhouse_profiles_custom:
  my_custom_profile:
@@ -49,6 +58,7 @@ clickhouse_profiles_custom:
 ```
 
 Allow any plain k-v. Transform to xml
+
 ```xml
 <profiles>
     <!-- Profiles of settings. -->
@@ -74,6 +84,7 @@ Allow any plain k-v. Transform to xml
 ```
 
 F: You can create custom users:
+
 ```yaml
 clickhouse_users_custom:
       - { name: "testuser",
@@ -107,17 +118,21 @@ clickhouse_users_custom:
 ```
 
 F: You can manage own quotas:
+
 ```yaml
 clickhouse_quotas_custom:
  - { name: "my_custom_quota", intervals: "{{ clickhouse_quotas_intervals_default }}",comment: "Default quota - count only" }
 ```
+
 Quote object is simple dict:
+
 ```yaml
  - { duration: 3600, queries: 0, errors: 0,result_rows: 0,read_rows: 0,execution_time: 0 }
 ```
 
 F: You can create any databases:
 default db state - present
+
 ```yaml
 clickhouse_dbs_custom:
       - { name: testu1 }
@@ -133,6 +148,7 @@ clickhouse_dbs_custom:
 ```
 
 F: You can create dictionary via odbc
+
 ```
 clickhouse_dicts:
           test1:
@@ -166,11 +182,13 @@ clickhouse_dicts:
 ```
 
 F: Flag for remove clickhouse from host(disabled by default)
+
 ```yaml
 clickhouse_remove: no
 ```
 
 F: You can manage [Kafka configuration](https://clickhouse.com/docs/en/engines/table-engines/integrations/kafka/#configuration)
+
 ```yaml
 # global configuration
 clickhouse_kafka_config:
@@ -187,6 +205,7 @@ clickhouse_kafka_topics_config:
 ```
 
 F: You can manage [LDAP Server configuration](https://clickhouse.com/docs/en/operations/external-authenticators/ldap/#ldap-server-definition)
+
 ```yaml
 clickhouse_ldap_servers:
   # Debug with ldapwhoami -H '<host>' -D '<bind_dn>' -w <password>
@@ -200,6 +219,7 @@ clickhouse_ldap_servers:
 ```
 
 F: You can manage [LDAP External User Directory](https://clickhouse.com/docs/en/operations/external-authenticators/ldap/#ldap-external-user-directory)
+
 ```yaml
 # Helpful guide on https://altinity.com/blog/integrating-clickhouse-with-ldap-part-two
 clickhouse_ldap_user_directories:
@@ -215,6 +235,7 @@ clickhouse_ldap_user_directories:
 ```
 
 F: You can manage Merge Tree config. For the list of available parameters, see [MergeTree tables settings](https://clickhouse.com/docs/en/operations/settings/merge-tree-settings/).
+
 ```yaml
 clickhouse_merge_tree_config:
   max_suspicious_broken_parts: 5
@@ -225,6 +246,7 @@ Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
 ```yaml
   - hosts: clickhouse_cluster
     remote_user: root
@@ -302,6 +324,7 @@ Including an example of how to use your role (for instance, with variables passe
 ```
 
 To generate macros: in file host_vars\db_host_1.yml
+
 ```yaml
 clickhouse_macros:
   layer: 01
@@ -311,12 +334,14 @@ clickhouse_macros:
 
 Security harden the cluster. You can configure the cluster with extra settings
 which enables
+
 - HTTPS port
 - TLS Encrypted TCP port
 - HTTPS for data replication
 - Credentials for data replication
 - Secret validation for distributed queries
 - ZooKeeper ACL
+
 ```yaml
 - hosts: clickhouse_cluster
   become: true

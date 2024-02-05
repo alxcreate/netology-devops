@@ -71,7 +71,7 @@
         create: yes
         dest: "{{ nexus_directory_home }}/bin/nexus.rc"
         insertafter: EOF
-        line: "run_as_user=\"{{ nexus_user_name }}\""
+        line: 'run_as_user="{{ nexus_user_name }}"'
         regexp: "^run_as_user"
 
     - name: Raise nofile limit for Nexus user

@@ -1,11 +1,12 @@
 # Домашнее задание к занятию "3.4. Операционные системы, лекция 2"
 
 > 1. На лекции мы познакомились с node_exporter. В демонстрации его исполняемый файл запускался в background. Этого достаточно для демо, но не для настоящей production-системы, где процессы должны находиться под внешним управлением. Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:
+>
 > * поместите его в автозагрузку,
 > * предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на systemctl cat cron),
 > * удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
 
-Создан отдельный пользователь для запуска процесса, добавлен файл запуска сервиса и включен автоматический запуск при загрузке системы. 
+Создан отдельный пользователь для запуска процесса, добавлен файл запуска сервиса и включен автоматический запуск при загрузке системы.
 
     vagrant@vagrant:~$ sudo cat /etc/systemd/system/node_exporter.service
     [Unit]
@@ -38,11 +39,11 @@
 >
 > Предлагаю уточнить как именно в службу будут передаваться дополнительные опции. Примеры можно посмотреть вот здесь:
 >
-> https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart=
+> <https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart=>
 >
-> https://unix.stackexchange.com/questions/323914/dynamic-variables-in-systemd-service-unit-files
+> <https://unix.stackexchange.com/questions/323914/dynamic-variables-in-systemd-service-unit-files>
 >
-> https://stackoverflow.com/questions/48843949/systemd-use-variables-in-a-unit-file
+> <https://stackoverflow.com/questions/48843949/systemd-use-variables-in-a-unit-file>
 >
 > Замечу, что речь идёт не о переменных окружения, а об опциях (параметрах) запуска службы.
 
@@ -88,6 +89,7 @@ Network:
     node_network_transmit_queue_length
 
 > 3. Установите в свою виртуальную машину Netdata. Воспользуйтесь готовыми пакетами для установки (sudo apt install -y netdata). После успешной установки:
+>
 > * в конфигурационном файле /etc/netdata/netdata.conf в секции [web] замените значение с localhost на bind to = 0.0.0.0,
 > * добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload:
 
@@ -196,4 +198,3 @@ Network:
 
     vagrant@vagrant:~$ ulimit -a | grep proc
     max user processes              (-u) 20
-

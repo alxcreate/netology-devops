@@ -2,12 +2,12 @@
 
 ## Введение
 
-Перед выполнением задания вы можете ознакомиться с 
+Перед выполнением задания вы можете ознакомиться с
 [дополнительными материалами](https://github.com/netology-code/virt-homeworks/tree/master/additional/README.md).
 
 ## Задача 1
 
-Используя docker поднимите инстанс PostgreSQL (версию 12) c 2 volume, 
+Используя docker поднимите инстанс PostgreSQL (версию 12) c 2 volume,
 в который будут складываться данные БД и бэкапы.
 
 Приведите получившуюся команду или docker-compose манифест.
@@ -37,7 +37,8 @@ volumes:
 
 ## Задача 2
 
-В БД из задачи 1: 
+В БД из задачи 1:
+
 - создайте пользователя test-admin-user и БД test_db
 - в БД test_db создайте таблицу orders и clients (спeцификация таблиц ниже)
 - предоставьте привилегии на все операции пользователю test-admin-user на таблицы БД test_db
@@ -45,25 +46,29 @@ volumes:
 - предоставьте пользователю test-simple-user права на SELECT/INSERT/UPDATE/DELETE данных таблиц БД test_db
 
 Таблица orders:
+
 - id (serial primary key)
 - наименование (string)
 - цена (integer)
 
 Таблица clients:
+
 - id (serial primary key)
 - фамилия (string)
 - страна проживания (string, index)
 - заказ (foreign key orders)
 
 Приведите:
+
 - итоговый список БД после выполнения пунктов выше,
 - описание таблиц (describe)
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
 - список пользователей с правами над таблицами test_db
 
-### Ответ:
+### Ответ
 
 - итоговый список БД после выполнения пунктов выше:
+
 ```
 SELECT datname FROM pg_database;
 "datname"
@@ -75,42 +80,47 @@ SELECT datname FROM pg_database;
 ```
 
 - описание таблиц (describe)
+
 ```
 SELECT * FROM information_schema.tables
 WHERE table_schema NOT IN ('information_schema','pg_catalog');
-"table_catalog"	"table_schema"	"table_name"	"table_type"	"self_referencing_column_name"	"reference_generation"	"user_defined_type_catalog"	"user_defined_type_schema"	"user_defined_type_name"	"is_insertable_into"	"is_typed"	"commit_action"
-"test_db"	"public"	"orders"	"BASE TABLE"						"YES"	"NO"	
-"test_db"	"public"	"clients"	"BASE TABLE"						"YES"	"NO"	
+"table_catalog" "table_schema" "table_name" "table_type" "self_referencing_column_name" "reference_generation" "user_defined_type_catalog" "user_defined_type_schema" "user_defined_type_name" "is_insertable_into" "is_typed" "commit_action"
+"test_db" "public" "orders" "BASE TABLE"      "YES" "NO" 
+"test_db" "public" "clients" "BASE TABLE"      "YES" "NO" 
 ```
+
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
+
 ```
 select * from information_schema.table_privileges where grantee in ('test-admin-user','test-simple-user')
 ```
+
 - список пользователей с правами над таблицами test_db
+
 ```
-"grantor"	"grantee"	"table_catalog"	"table_schema"	"table_name"	"privilege_type"	"is_grantable"	"with_hierarchy"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"INSERT"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"SELECT"	"NO"	"YES"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"UPDATE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"DELETE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"TRUNCATE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"REFERENCES"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"clients"	"TRIGGER"	"NO"	"NO"
-"user"	"test-simple-user"	"test_db"	"public"	"clients"	"INSERT"	"NO"	"NO"
-"user"	"test-simple-user"	"test_db"	"public"	"clients"	"SELECT"	"NO"	"YES"
-"user"	"test-simple-user"	"test_db"	"public"	"clients"	"UPDATE"	"NO"	"NO"
-"user"	"test-simple-user"	"test_db"	"public"	"clients"	"DELETE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"INSERT"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"SELECT"	"NO"	"YES"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"UPDATE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"DELETE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"TRUNCATE"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"REFERENCES"	"NO"	"NO"
-"user"	"test-admin-user"	"test_db"	"public"	"orders"	"TRIGGER"	"NO"	"NO"
-"user"	"test-simple-user"	"test_db"	"public"	"orders"	"INSERT"	"NO"	"NO"
-"user"	"test-simple-user"	"test_db"	"public"	"orders"	"SELECT"	"NO"	"YES"
-"user"	"test-simple-user"	"test_db"	"public"	"orders"	"UPDATE"	"NO"	"NO"
-"user"	"test-simple-user"	"test_db"	"public"	"orders"	"DELETE"	"NO"	"NO"
+"grantor" "grantee" "table_catalog" "table_schema" "table_name" "privilege_type" "is_grantable" "with_hierarchy"
+"user" "test-admin-user" "test_db" "public" "clients" "INSERT" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "clients" "SELECT" "NO" "YES"
+"user" "test-admin-user" "test_db" "public" "clients" "UPDATE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "clients" "DELETE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "clients" "TRUNCATE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "clients" "REFERENCES" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "clients" "TRIGGER" "NO" "NO"
+"user" "test-simple-user" "test_db" "public" "clients" "INSERT" "NO" "NO"
+"user" "test-simple-user" "test_db" "public" "clients" "SELECT" "NO" "YES"
+"user" "test-simple-user" "test_db" "public" "clients" "UPDATE" "NO" "NO"
+"user" "test-simple-user" "test_db" "public" "clients" "DELETE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "orders" "INSERT" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "orders" "SELECT" "NO" "YES"
+"user" "test-admin-user" "test_db" "public" "orders" "UPDATE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "orders" "DELETE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "orders" "TRUNCATE" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "orders" "REFERENCES" "NO" "NO"
+"user" "test-admin-user" "test_db" "public" "orders" "TRIGGER" "NO" "NO"
+"user" "test-simple-user" "test_db" "public" "orders" "INSERT" "NO" "NO"
+"user" "test-simple-user" "test_db" "public" "orders" "SELECT" "NO" "YES"
+"user" "test-simple-user" "test_db" "public" "orders" "UPDATE" "NO" "NO"
+"user" "test-simple-user" "test_db" "public" "orders" "DELETE" "NO" "NO"
 ```
 
 ## Задача 3
@@ -138,14 +148,16 @@ select * from information_schema.table_privileges where grantee in ('test-admin-
 |Ritchie Blackmore| Russia|
 
 Используя SQL синтаксис:
-- вычислите количество записей для каждой таблицы 
+
+- вычислите количество записей для каждой таблицы
 - приведите в ответе:
-    - запросы 
-    - результаты их выполнения.
+  - запросы
+  - результаты их выполнения.
 
 ### Ответ
 
 Добавление данных:
+
 ```
 insert into orders values
 (1,'Шоколад',10),
@@ -161,12 +173,15 @@ insert into clients values
 (4,'Ронни Джеймс Дио','Russia'),
 (5,'Ritchie Blackmore','Russia');
 ```
+
 Количество записей в таблицах:
+
 ```
 select count (*) from orders;
 "count"
 5
 ```
+
 ```
 select count (*) from clients;
 "count"
@@ -188,12 +203,13 @@ select count (*) from clients;
 Приведите SQL-запросы для выполнения данных операций.
 
 Приведите SQL-запрос для выдачи всех пользователей, которые совершили заказ, а также вывод данного запроса.
- 
+
 Подсказка - используйте директиву `UPDATE`.
 
 ### Ответ
 
 Внесение изменений в таблицу:
+
 ```
 UPDATE clients
 SET "Order" = (SELECT id FROM orders WHERE "Name" = 'Книга')
@@ -207,20 +223,21 @@ UPDATE clients
 SET "Order" = (SELECT id FROM orders WHERE "Name" = 'Гитара')
 WHERE "LastName" = 'Иоганн Себастьян Бах';
 ```
+
 Выввод всех пользователей, которые совершили заказ:
 
 ```
 select * from clients where "Order" is not null
 
-"id"	"LastName"	"Country"	"Order"
-1	"Иванов Иван Иванович"	"USA"	3
-2	"Петров Петр Петрович"	"Canada"	4
-3	"Иоганн Себастьян Бах"	"Japan"	5
+"id" "LastName" "Country" "Order"
+1 "Иванов Иван Иванович" "USA" 3
+2 "Петров Петр Петрович" "Canada" 4
+3 "Иоганн Себастьян Бах" "Japan" 5
 ```
 
 ## Задача 5
 
-Получите полную информацию по выполнению запроса выдачи всех пользователей из задачи 4 
+Получите полную информацию по выполнению запроса выдачи всех пользователей из задачи 4
 (используя директиву EXPLAIN).
 
 Приведите получившийся результат и объясните что значат полученные значения.
@@ -232,12 +249,12 @@ select * from clients where "Order" is not null
 "Seq Scan on clients  (cost=0.00..1.05 rows=3 width=47)"
 "  Filter: (""Order"" IS NOT NULL)"
 ```
+
 Cost - оценочная стоимость.
 
 Rows - число записей, обработанных для получения выходных данных.
 
 Width - среднее количество байт в одной строке.
-
 
 ## Задача 6
 
@@ -249,20 +266,25 @@ Width - среднее количество байт в одной строке.
 
 Восстановите БД test_db в новом контейнере.
 
-Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
+Приведите список операций, который вы применяли для бэкапа данных и восстановления.
 
 ### Ответ
 
 Бэкап:
+
 ```
 alx@alx-laptop ~ % docker exec -it hw0602-1 pg_dumpall -U user --roles-only -f /var/lib/docker/volumes/vol2/_data/roles.sql 
 alx@alx-laptop ~ % docker exec -it hw0602-1 pg_dump -h localhost -U user -F t -f /var/lib/docker/volumes/vol2/_data/backup_1.tar test_db    
 ```
-Останавливаем первый контейнер: 
+
+Останавливаем первый контейнер:
+
 ```
 alx@alx-laptop ~ % docker stop hw0602-1   
 ```
+
 Запускаем второй через docker-compose:
+
 ```
 version: "3"
 services:
@@ -281,17 +303,23 @@ volumes:
   vol1:
   vol2:
 ```
+
 Проверка файлов:
+
 ```
 docker exec -it hw0602-2 ls /var/lib/docker/volumes/vol2/_data/    
 backup_1.tar  roles.sql
 ```
+
 Создание базы:
+
 ```
 alx@alx-laptop ~ % docker exec -it hw0602-2 psql -U postgres -c "CREATE DATABASE test_db WITH ENCODING='UTF-8';"
 CREATE DATABASE
 ```
+
 Восстановление базы:
+
 ```
 alx@alx-laptop ~ % docker exec -it hw0602-2 psql -U postgres -f /var/lib/docker/volumes/vol2/_data/roles.sql
 

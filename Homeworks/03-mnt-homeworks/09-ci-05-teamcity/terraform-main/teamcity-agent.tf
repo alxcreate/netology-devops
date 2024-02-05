@@ -8,7 +8,7 @@ resource "yandex_compute_instance" "teamcity-agent" {
     cores  = 2
     memory = 4
   }
-    metadata = {
+  metadata = {
     ssh-keys = "teamcity-agent:${file("~/.ssh/id_rsa.pub")}"
 
   }

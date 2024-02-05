@@ -175,7 +175,6 @@
       Community: 174:21101 174:22012 53767:5000
       path 7FE02500BC20 RPKI State not found
 
-
 > 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
 Конфигурация сетевого интерфейса:
@@ -192,7 +191,9 @@
     [Route]
     Gateway=172.16.0.1
     Destination=172.16.2.0/24####
+
 ####
+
     vagrant@vagrant:~$ cat /etc/systemd/network/dummy0.netdev
     [NetDev]
     Name=dummy0

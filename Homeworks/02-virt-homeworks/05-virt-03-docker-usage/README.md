@@ -7,11 +7,12 @@
 
 Сценарий выполения задачи:
 
-- создайте свой репозиторий на https://hub.docker.com;
+- создайте свой репозиторий на <https://hub.docker.com>;
 - выберете любой образ, который содержит веб-сервер Nginx;
 - создайте свой fork образа;
 - реализуйте функциональность:
 запуск веб-сервера в фоне с индекс-страницей, содержащей HTML-код ниже:
+
 ```
 <html>
 <head>
@@ -22,11 +23,12 @@ Hey, Netology
 </body>
 </html>
 ```
-Опубликуйте созданный форк в своем репозитории и предоставьте ответ в виде ссылки на https://hub.docker.com/username_repo.
+
+Опубликуйте созданный форк в своем репозитории и предоставьте ответ в виде ссылки на <https://hub.docker.com/username_repo>.
 
 ### Ответ
 
-https://hub.docker.com/repository/docker/alxaustralia/nginx
+<https://hub.docker.com/repository/docker/alxaustralia/nginx>
 
 ## Задача 2
 
@@ -47,6 +49,7 @@ https://hub.docker.com/repository/docker/alxaustralia/nginx
 - Gitlab сервер для реализации CI/CD процессов и приватный (закрытый) Docker Registry.
 
 ### Ответ
+
 - Высоконагруженное монолитное java веб-приложение;
 Нет необходимости использовать Docker потому как JVM, насколько мне известно, выполняет достаточную изоляцию приложения. Для уменьшения задержек можно использовать физический кластер.
 
@@ -80,6 +83,7 @@ https://hub.docker.com/repository/docker/alxaustralia/nginx
 - Подключитесь во второй контейнер и отобразите листинг и содержание файлов в ```/data``` контейнера.
 
 ### Ответ
+
 ```
 alx@alx-laptop docker % docker run -v /Users/alx/Documents/data:/data -it debian
 root@5d7bc1393785:/# ls data

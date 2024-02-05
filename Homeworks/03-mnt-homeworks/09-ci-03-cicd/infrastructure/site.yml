@@ -84,7 +84,7 @@
 
     - name: Change password for Sonar user in PostgreSQL
       become_user: postgres
-      command: "psql -c \"ALTER USER sonar WITH ENCRYPTED password '{{ sonarqube_db_password }}';\""
+      command: 'psql -c "ALTER USER sonar WITH ENCRYPTED password ''{{ sonarqube_db_password }}'';"'
 
     - name: Create Sonar DB
       become_user: postgres
@@ -123,22 +123,22 @@
       lineinfile:
         dest: /etc/sudoers
         state: present
-        regexp: '^%{{ sonarqube_db_user }}'
-        line: '%{{ sonarqube_db_user }} ALL=(ALL) NOPASSWD: ALL'
-        validate: 'visudo -cf %s'
+        regexp: "^%{{ sonarqube_db_user }}"
+        line: "%{{ sonarqube_db_user }} ALL=(ALL) NOPASSWD: ALL"
+        validate: "visudo -cf %s"
 
     - name: Increase Virtual Memory
       lineinfile:
         dest: /etc/sysctl.conf
         state: present
-        regexp: '^vm.max_map_count'
-        line: 'vm.max_map_count=262144'
+        regexp: "^vm.max_map_count"
+        line: "vm.max_map_count=262144"
     - name: Reboot VM
       reboot:
 
 - name: Get Sonarqube installed
   hosts: sonarqube
-  vars: 
+  vars:
     ansible_user: "{{ sonarqube_db_user }}"
   tasks:
     - name: Get distrib ZIP
@@ -180,7 +180,7 @@
           line: "sonar.jdbc.url=jdbc:postgresql://localhost:{{ sonar_db_port }}/{{ sonarqube_db_name }}?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance"
         - regexp: "^sonar.web.context"
           line: "sonar.web.context={{ sonar_web_context }}"
-    
+
     - name: Generate wrapper.conf
       template:
         src: wrapper.conf.j2
@@ -215,7 +215,7 @@
       pause:
         seconds: 180
       when: sonar_symlink.changed
-      tags: ['skip_ansible_lint']
+      tags: ["skip_ansible_lint"]
 
     - name: Make sure Sonar is responding on the configured port.
       wait_for:
@@ -295,7 +295,7 @@
         create: yes
         dest: "{{ nexus_directory_home }}/bin/nexus.rc"
         insertafter: EOF
-        line: "run_as_user=\"{{ nexus_user_name }}\""
+        line: 'run_as_user="{{ nexus_user_name }}"'
         regexp: "^run_as_user"
 
     - name: Raise nofile limit for Nexus user

@@ -39,7 +39,7 @@ resource "yandex_kubernetes_node_group" "kubernetes-nodes-a" {
   }
   instance_template {
     platform_id = "standard-v1"
-    name = "kubernetes-node-a-{instance.short_id}"
+    name        = "kubernetes-node-a-{instance.short_id}"
     network_interface {
       nat        = true
       subnet_ids = ["${yandex_vpc_subnet.subnet-a.id}"]
@@ -72,7 +72,7 @@ resource "yandex_kubernetes_node_group" "kubernetes-nodes-b" {
   }
   instance_template {
     platform_id = "standard-v1"
-    name = "kubernetes-node-b-{instance.short_id}"
+    name        = "kubernetes-node-b-{instance.short_id}"
     network_interface {
       nat        = true
       subnet_ids = ["${yandex_vpc_subnet.subnet-b.id}"]
@@ -105,7 +105,7 @@ resource "yandex_kubernetes_node_group" "kubernetes-nodes-c" {
   }
   instance_template {
     platform_id = "standard-v1"
-    name = "kubernetes-node-c-{instance.short_id}"
+    name        = "kubernetes-node-c-{instance.short_id}"
     network_interface {
       nat        = true
       subnet_ids = ["${yandex_vpc_subnet.subnet-c.id}"]
