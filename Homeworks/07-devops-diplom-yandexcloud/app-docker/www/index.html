@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alxcreate.com | Aleksey Abramov</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: "Source Sans Pro", Arial, sans-serif;
+            background-color: #f2f2f2;
+            background-image: url('https://www.creativefabrica.com/wp-content/uploads/2023/05/11/Modern-colourful-abstract-background-Graphics-69439498-1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        section {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 15px 30px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .contact-info p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .contact-info p:first-child {
+            font-size: 1.5em;
+        }
+
+        .contact-item {
+            display: block;
+            margin: 5px;
+            padding: 5px 10px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .contact-item i {
+            margin-right: 5px;
+        }
+
+        .vertical-line {
+            border-left: 1px solid #ccc;
+            height: 100px;
+            margin: 0 20px;
+        }
+
+        .contacts-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #777;
+        }
+
+        a:visited {
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            section {
+                flex-direction: column;
+            }
+
+            .vertical-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="contact-info">
+            <p>Aleksey Abramov</p>
+            <p>System Engineer</p>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="contacts-container">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i><a href="mailto:alx@alxcreate.com">alx@alxcreate.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-linkedin"></i><a href="https://www.linkedin.com/in/alxcreate" target="_blank">LinkedIn</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-telegram"></i><a href="https://t.me/alxcreate1" target="_blank">Telegram</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

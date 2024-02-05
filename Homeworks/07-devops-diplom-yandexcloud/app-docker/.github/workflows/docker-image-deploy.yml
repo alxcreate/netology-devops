@@ -1,0 +1,61 @@
+name: Build Docker Image and Deploy to Kubernetes
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if it's a tagged commit
+      id: is_tagged
+      run: echo "IS_TAGGED=$(echo $GITHUB_REF | grep -q 'refs/tags/' && echo true || echo false)" >> $GITHUB_ENV
+    
+    - name: Exit if not a tagged commit
+      run: |
+        if [ "$IS_TAGGED" != "true" ]; then
+          echo "This is not a tagged commit. Exiting..."
+          exit 1
+        fi
+    
+    - name: Extract tag from commit
+      id: extract_tag
+      run: echo "TAG=$(echo $GITHUB_REF | sed 's/refs\/tags\///')" >> $GITHUB_ENV
+    
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      if: ${{ env.IS_TAGGED == 'true' }}  # Execute only if there is a tag
+    
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: alxcreate/app:${{ env.TAG }}
+      if: ${{ env.IS_TAGGED == 'true' }}  # Execute only if there is a tag
+    
+    - name: Install Yandex.Cloud CLI
+      run: |
+        curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+        source "/home/runner/.bashrc" | bash
+    
+    - name: Authenticate with Yandex.Cloud
+      run: |
+        yc config set token ${{ secrets.YC_API_TOKEN }} | bash
+    
+    - name: Get Kubernetes cluster credentials
+      run: |
+        CLUSTER_ID=$(yc k8s cluster list --format json | grep -o '"id": "[^"]*' | awk -F': "' '{print $2}' | tail -n 1) | bash
+        yc managed-kubernetes cluster get-credentials --id $CLUSTER_ID --external | bash
+    
+    - name: Apply Kubernetes manifests
+      run: |
+        kubectl apply -f https://raw.githubusercontent.com/alxcreate/kubernetes-conf/main/add-deployment.yaml | bash
+        kubectl apply -f https://raw.githubusercontent.com/alxcreate/kubernetes-conf/main/app-service.yaml | bash
